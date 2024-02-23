@@ -1,25 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react'
+import Header from './components/Header'
+import WeatherCard from './components/WeatherCard'
+import WeatherForecast from './components/WeatherForecast'
 
 function App() {
+  const [weatherData, setWeatherData] = useState(null)
+  const [cityFromSearchBar, setCityFromSearchBar] = useState('')
+
+  const handleSearch = (data, city) => {
+    setWeatherData(data)
+    setCityFromSearchBar(city)
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="flex justify-center items-center h-screen">
+      <div className="shadow-3xl w-[425px] min-h-[700px] bg-weatherColor rounded-2xl">
+        <Header onSearch={handleSearch} />
+        <WeatherCard weatherData={weatherData} />
+        <WeatherForecast city={cityFromSearchBar} />
+      </div>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
